@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title></title>
+<title>Simple Black OLED Site</title>
+<link rel="icon" type="image/x-icon" href="media/favicon.ico">
 <style>
   * {
     box-sizing: border-box;
@@ -80,48 +81,18 @@
 <div id="clock">Loading...</div>
 
 <div class="button-container">
-  <a
-    href="https://jellyfin.eatyourbacon.com"
-    class="tile-button"
-    target="_blank"
-    rel="noopener noreferrer"
-    id="btn-jellyfin"
-  >
-    <img
-      src="https://user-images.githubusercontent.com/35968181/97707433-0a1bc880-1ab7-11eb-9846-1b7c2e1bca7c.png"
-      alt="Jellyfin Logo"
-      id="logo-jellyfin"
-    />
+  <a href="https://jellyfin.eatyourbacon.com" class="tile-button" target="_blank" rel="noopener noreferrer">
+    <img src="media/jellyfin.ico" alt="Jellyfin Logo" />
     Jellyfin
   </a>
 
-  <a
-    href="https://casa.eatyourbacon.com"
-    class="tile-button"
-    target="_blank"
-    rel="noopener noreferrer"
-    id="btn-casaos"
-  >
-    <img
-      src="https://casaos.io/images/logo.svg"
-      alt="CasaOS Logo"
-      id="logo-casaos"
-    />
+  <a href="https://casa.eatyourbacon.com" class="tile-button" target="_blank" rel="noopener noreferrer">
+    <img src="media/casaos.ico" alt="CasaOS Logo" />
     CasaOS
   </a>
 
-  <a
-    href="https://files.eatyourbacon.com"
-    class="tile-button"
-    target="_blank"
-    rel="noopener noreferrer"
-    id="btn-filebrowser"
-  >
-    <img
-      src="https://filebrowser.org/img/filebrowser-logo.svg"
-      alt="Filebrowser Logo"
-      id="logo-filebrowser"
-    />
+  <a href="https://files.eatyourbacon.com" class="tile-button" target="_blank" rel="noopener noreferrer">
+    <img src="media/filebrowser.ico" alt="Filebrowser Logo" />
     Filebrowser
   </a>
 </div>
@@ -129,17 +100,20 @@
 <script>
   const melbourneTimezone = "Australia/Melbourne";
   const clockEl = document.getElementById("clock");
+
   function updateClock() {
     const now = new Date();
-    const options = {
+    let options = {
       hour: "numeric",
       minute: "2-digit",
-      hour12: false,
+      hour12: true,
       timeZone: melbourneTimezone,
     };
-    const timeString = now.toLocaleTimeString("en-AU", options);
-    clockEl.textContent = timeString;
+    let formatted = new Intl.DateTimeFormat("en-AU", options).format(now);
+    formatted = formatted.replace(/ (AM|PM)/i, ""); // Strip AM/PM if it appears
+    clockEl.textContent = formatted.trim();
   }
+
   updateClock();
   setInterval(updateClock, 1000);
 </script>
