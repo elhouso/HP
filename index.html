@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Simple Black OLED Site</title>
+<title></title>
 <style>
   * {
     box-sizing: border-box;
@@ -81,7 +81,7 @@
 
 <div class="button-container">
   <a
-    href="https://your-jellyfin-url.com"
+    href="https://jellyfin.eatyourbacon.com"
     class="tile-button"
     target="_blank"
     rel="noopener noreferrer"
@@ -96,7 +96,7 @@
   </a>
 
   <a
-    href="https://your-casaos-url.com"
+    href="https://casa.eatyourbacon.com"
     class="tile-button"
     target="_blank"
     rel="noopener noreferrer"
@@ -111,7 +111,7 @@
   </a>
 
   <a
-    href="https://your-filebrowser-url.com"
+    href="https://files.eatyourbacon.com"
     class="tile-button"
     target="_blank"
     rel="noopener noreferrer"
@@ -133,18 +133,12 @@
     const now = new Date();
     const options = {
       hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: true,
+      minute: "2-digit",
+      hour12: false,
       timeZone: melbourneTimezone,
-    };
-    const tzOptions = {
-      timeZone: melbourneTimezone,
-      timeZoneName: "short",
     };
     const timeString = now.toLocaleTimeString("en-AU", options);
-    const tzString = now.toLocaleTimeString("en-AU", tzOptions).split(" ").pop();
-    clockEl.textContent = `${timeString} ${tzString}`;
+    clockEl.textContent = timeString;
   }
   updateClock();
   setInterval(updateClock, 1000);
