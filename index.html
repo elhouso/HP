@@ -1,16 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Welcome to eatyourbacon.com</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Black OLED Site</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: #000;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+  }
+  #clock {
+    font-size: 4vw;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+  .button-container {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90vw;
+    max-width: 600px;
+  }
+  .tile-button {
+    background: #111;
+    border: 2px solid #444;
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    padding: 1.2rem 1rem;
+    flex: 1 1 150px;
+    max-width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .tile-button:hover,
+  .tile-button:focus {
+    border-color: #0af;
+    background-color: #222;
+  }
+  .tile-button img {
+    max-height: 48px;
+    max-width: 100px;
+    margin-bottom: 0.8rem;
+    object-fit: contain;
+  }
+  @media (max-width: 400px) {
+    #clock {
+      font-size: 8vw;
+    }
+    .tile-button {
+      max-width: 140px;
+      padding: 1rem 0.8rem;
+    }
+    .tile-button img {
+      max-height: 36px;
+      margin-bottom: 0.5rem;
+    }
+  }
+</style>
 </head>
 <body>
-  <h1>Welcome to eatyourbacon.com</h1>
-  <p>Quick links:</p>
-  <ul>
-    <li><a href="https://files.eatyourbacon.com">Filebrowser</a></li>
-    <li><a href="https://jellyfin.eatyourbacon.com">Jellyfin</a></li>
-    <!-- add more links as you want -->
-  </ul>
+
+<div id="clock">Loading...</div>
+
+<div class="button-container">
+  <a
+    href="https://your-jellyfin-url.com"
+    class="tile-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    id="btn-jellyfin"
+  >
+    <img
+      src="https://user-images.githubusercontent.com/35968181/97707433-0a1bc880-1ab7-11eb-9846-1b7c2e1bca7c.png"
+      alt="Jellyfin Logo"
+      id="logo-jellyfin"
+    />
+    Jellyfin
+  </a>
+
+  <a
+    href="https://your-casaos-url.com"
+    class="tile-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    id="btn-casaos"
+  >
+    <img
+      src="https://casaos.io/images/logo.svg"
+      alt="CasaOS Logo"
+      id="logo-casaos"
+    />
+    CasaOS
+  </a>
+
+  <a
+    href="https://your-filebrowser-url.com"
+    class="tile-button"
+    target="_blank"
+    rel="noopener noreferrer"
+    id="btn-filebrowser"
+  >
+    <img
+      src="https://filebrowser.org/img/filebrowser-logo.svg"
+      alt="Filebrowser Logo"
+      id="logo-filebrowser"
+    />
+    Filebrowser
+  </a>
+</div>
+
+<script>
+  const melbourneTimezone = "Australia/Melbourne";
+  const clockEl = document.getElementById("clock");
+  function updateClock() {
+    const now = new Date();
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: true,
+      timeZone: melbourneTimezone,
+    };
+    const tzOptions = {
+      timeZone: melbourneTimezone,
+      timeZoneName: "short",
+    };
+    const timeString = now.toLocaleTimeString("en-AU", options);
+    const tzString = now.toLocaleTimeString("en-AU", tzOptions).split(" ").pop();
+    clockEl.textContent = `${timeString} ${tzString}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>
+
 </body>
 </html>
